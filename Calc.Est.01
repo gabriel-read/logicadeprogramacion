@@ -9,8 +9,8 @@ def calcular_promedio(datos):
     return np.mean(datos)
 
 def calcular_moda(datos):
-    moda, _ = stats.mode(datos)
-    return moda[0]
+    moda = stats.mode(datos, keepdims=True)  # Añadimos keepdims=True para mantener el formato de array
+    return moda.mode[0]  # Accedemos al atributo 'mode'
 
 def calcular_mediana(datos):
     return np.median(datos)
