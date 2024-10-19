@@ -8,3 +8,14 @@ scipy> https://scipy.org/
 simpy> https://docs.sympy.org/latest/index.html
 statsmodels> https://www.statsmodels.org/stable/index.html
 math> https://docs.python.org/3/library/math.html
+
+documentacion del arreglo al fallo del calculo modal> https://github.com/scipy/scipy/issues/16418
+https://jax.readthedocs.io/en/latest/_autosummary/jax.scipy.stats.mode.html
+https://stackoverflow.com/questions/40927156/what-is-the-role-of-keepdims-in-numpy-python
+vimos que este problema era comun, al parecer tiene que ver con la version de scipy stats y un bug que tenia tiempo, eso se arregla
+utilizando keepdims = true como booleano se encarga de que se mantenga como array y tiene acceso al .mode para que me de el valor de la moda.
+
+editamos el codigo y corregimos el problema de la moda, aqui esta la documentacion del arreglo que le hicimos:
+En la función calcular_moda, añadí el parámetro keepdims=True a la función stats.mode().
+Esto asegura que la salida se mantenga como un array y no se colapse en un escalar.
+Acceso correcto al atributo .mode[0] para obtener el valor de la moda desde el objeto ModeResult.
