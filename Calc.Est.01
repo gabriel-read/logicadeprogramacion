@@ -1,0 +1,269 @@
+import numpy as np
+import scipy.stats as stats
+import sympy as sp
+import statsmodels.api as sm
+from math import factorial
+
+# Funciones de la calculadora
+def calcular_promedio(datos):
+    return np.mean(datos)
+
+def calcular_moda(datos):
+    moda, _ = stats.mode(datos)
+    return moda[0]
+
+def calcular_mediana(datos):
+    return np.median(datos)
+
+def calcular_varianza_muestral(datos):
+    return np.var(datos, ddof=1)
+
+def calcular_varianza_poblacional(datos):
+    return np.var(datos)
+
+def calcular_desviacion_estandar_muestral(datos):
+    return np.std(datos, ddof=1)
+
+def calcular_desviacion_estandar_poblacional(datos):
+    return np.std(datos)
+
+def calcular_binomial(n, p, k):
+    return stats.binom.pmf(k, n, p)
+
+def calcular_distribucion_normal(x, media=0, desviacion_estandar=1):
+    return stats.norm.pdf(x, loc=media, scale=desviacion_estandar)
+
+def calcular_poisson(lambd, k):
+    return stats.poisson.pmf(k, lambd)
+
+def calcular_combinaciones(n, k):
+    return sp.binomial(n, k)
+
+def calcular_permutaciones(n, k):
+    return factorial(n) // factorial(n - k)
+
+def calcular_regresion_lineal(x, y):
+    x = sm.add_constant(x)
+    modelo = sm.OLS(y, x).fit()
+    return modelo.summary()
+
+def calcular_correlacion_pearson(x, y):
+    return stats.pearsonr(x, y)
+
+def calcular_covarianza(x, y):
+    return np.cov(x, y)[0, 1]
+
+# Función para pedir datos numéricos y evitar que regrese al menú
+def pedir_datos_numericos(mensaje):
+    while True:
+        datos = input(mensaje)
+        try:
+            return [float(x) for x in datos.split(',')]
+        except ValueError:
+            print("Error: Ingresa solo números separados por comas. Vuelve a intentarlo.")
+
+# Función para pedir un valor numérico
+def pedir_valor_numero(mensaje):
+    while True:
+        try:
+            return float(input(mensaje))
+        except ValueError:
+            print("Error: Ingresa un número válido.")
+
+# Función para pedir un valor entero
+def pedir_valor_entero(mensaje):
+    while True:
+        try:
+            return int(input(mensaje))
+        except ValueError:
+            print("Error: Ingresa un número entero válido.")
+
+# Función para mostrar el menú interactivo
+def mostrar_menu_interactivo():
+    print("\nPor favor, elige una operación:")
+    print("1. Promedio (Media Aritmética)")
+    print("2. Moda (Valor que más se repite)")
+    print("3. Mediana (Valor central en un conjunto de datos ordenados)")
+    print("4. Varianza Muestral")
+    print("5. Varianza Poblacional")
+    print("6. Desviación Estándar Muestral")
+    print("7. Desviación Estándar Poblacional")
+    print("8. Distribución Binomial")
+    print("9. Distribución Normal")
+    print("10. Distribución Poisson")
+    print("11. Combinaciones")
+    print("12. Permutaciones")
+    print("13. Regresión Lineal")
+    print("14. Correlación de Pearson")
+    print("15. Covarianza")
+    print("0. Salir")
+
+# Lógica del programa
+def main():
+    while True:
+        mostrar_menu_interactivo()
+        opcion = input("Ingresa una opción (1/2/3/.../15, o 0 para salir): ")
+
+        if opcion == '1':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Promedio:", calcular_promedio(datos))
+                    break  # Salir del bucle cuando los datos son correctos
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '2':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Moda:", calcular_moda(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '3':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Mediana:", calcular_mediana(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '4':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Varianza Muestral:", calcular_varianza_muestral(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '5':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Varianza Poblacional:", calcular_varianza_poblacional(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '6':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Desviación Estándar Muestral:", calcular_desviacion_estandar_muestral(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '7':
+            while True:
+                datos = pedir_datos_numericos("Ingresa los datos separados por comas: ")
+                try:
+                    print("Desviación Estándar Poblacional:", calcular_desviacion_estandar_poblacional(datos))
+                    break
+                except ValueError:
+                    print("Error: Por favor ingresa números válidos.")
+
+        elif opcion == '8':
+            while True:
+                try:
+                    n = pedir_valor_entero("Ingresa el número de ensayos (n): ")
+                    p = pedir_valor_numero("Ingresa la probabilidad de éxito (p): ")
+                    k = pedir_valor_entero("Ingresa el número de éxitos (k): ")
+                    print("Distribución Binomial:", calcular_binomial(n, p, k))
+                    break
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '9':
+            while True:
+                try:
+                    x = pedir_valor_numero("Ingresa el valor (x): ")
+                    media = pedir_valor_numero("Ingresa la media: ")
+                    desviacion = pedir_valor_numero("Ingresa la desviación estándar: ")
+                    print("Distribución Normal:", calcular_distribucion_normal(x, media, desviacion))
+                    break
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '10':
+            while True:
+                try:
+                    lambd = pedir_valor_numero("Ingresa el valor de lambda: ")
+                    k = pedir_valor_entero("Ingresa el número de eventos (k): ")
+                    print("Distribución Poisson:", calcular_poisson(lambd, k))
+                    break
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '11':
+            while True:
+                try:
+                    n = pedir_valor_entero("Ingresa el valor de n: ")
+                    k = pedir_valor_entero("Ingresa el valor de k: ")
+                    print("Combinaciones:", calcular_combinaciones(n, k))
+                    break
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '12':
+            while True:
+                try:
+                    n = pedir_valor_entero("Ingresa el valor de n: ")
+                    k = pedir_valor_entero("Ingresa el valor de k: ")
+                    print("Permutaciones:", calcular_permutaciones(n, k))
+                    break
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '13':
+            while True:
+                x = pedir_datos_numericos("Ingresa los valores de x separados por comas: ")
+                y = pedir_datos_numericos("Ingresa los valores de y separados por comas: ")
+                try:
+                    if len(x) == len(y):
+                        print(calcular_regresion_lineal(x, y))
+                        break
+                    else:
+                        print("Error: Las listas deben tener la misma longitud.")
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '14':
+            while True:
+                x = pedir_datos_numericos("Ingresa los valores de x separados por comas: ")
+                y = pedir_datos_numericos("Ingresa los valores de y separados por comas: ")
+                try:
+                    if len(x) == len(y):
+                        print("Correlación de Pearson:", calcular_correlacion_pearson(x, y))
+                        break
+                    else:
+                        print("Error: Las listas deben tener la misma longitud.")
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '15':
+            while True:
+                x = pedir_datos_numericos("Ingresa los valores de x separados por comas: ")
+                y = pedir_datos_numericos("Ingresa los valores de y separados por comas: ")
+                try:
+                    if len(x) == len(y):
+                        print("Covarianza:", calcular_covarianza(x, y))
+                        break
+                    else:
+                        print("Error: Las listas deben tener la misma longitud.")
+                except ValueError:
+                    print("Error: Ingresa valores válidos.")
+
+        elif opcion == '0':
+            print("Gracias por usar la calculadora estadística.")
+            break
+
+        else:
+            print("Opción inválida, por favor elige una opción válida.")
+
+if __name__ == "__main__":
+    main()
